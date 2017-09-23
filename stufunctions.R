@@ -96,6 +96,6 @@ getgrade<-function(gfact){
 # Copy the following codes to test my functions (mind the location of your files might not be the same of mine)
 #studentsfile<-read.table("students2.txt",fill=TRUE)
 #studclean<-read.csv("students.csv",header=TRUE)
-#correctncol<-ncol(studclean)
-#studafterclean<-cleanstu(studentsfile,correctncol)
+#correctnrow<-nrow(studclean)
+#studafterclean<-cleanstu(studentsfile,correctnrow)
 #mjobmatter(studafterclean)
