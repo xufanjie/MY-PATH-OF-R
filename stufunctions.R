@@ -1,9 +1,9 @@
 # To test the functions, just go to the bottom of the file and run the codes there
 # First 5 functions are writen for question d.
-# To get the result, just use cleanstu(dataframe, ncol of correct one)
-# After checking students.csv, ncol of correct one is 395 in this case
+# To get the result, just use cleanstu(dataframe, correct one)
 # To clean the dataframe.
-cleanstu<-function(df,n){
+cleanstu<-function(df,dfclean){
+  n<-nrow(dfclean)
   x<-nrow(df)/(n+1)
   y<-1
   df1<-data.frame(c("x.1",1:n),check.names=FALSE)
@@ -14,7 +14,7 @@ cleanstu<-function(df,n){
   df1<-cnullcol(df1)
   df1<-cheader(df1)
   df1<-cleancol(df1)
-  df1<-classcol(df1)
+  df1<-classcol(df1,dfclean)
   return(df1)
 }
 
@@ -50,15 +50,19 @@ cleancol<-function(cleanedstu){
 
 # To change the class of columns
 # Similar to the above function, this also can only used in this case
-classcol<-function(df){
-  x<-c(1,2,9,10,15,16,17,26,27,28,29,30,31,33)
-  for(i in x){
-    df[,i]<-as.integer(as.character(df[,i]))
+classcol<-function(df,dfclean){
+  for (i in 1:ncol(dfclean)){
+      if(is.integer(dfclean[,i])){
+         df[,i]<-as.integer(as.character(df[,i]))
+         }
+     }
+  for(i in 1:ncol(df)){
+    if(is.factor(dfclean[,i])){
+      df[,i]<-as.factor(as.character(df[,i]))
+    }
   }
-  df[,32]<-as.factor(df[,32])
   return(df)
 }
-# PROBLEM: After transformation, how can I make levels of columns which class are factor correct? They are still so messy!
 
 # Following are functions for question e.
 # To get the result, just run the function mjobmatter(dataframe)
@@ -96,6 +100,5 @@ getgrade<-function(gfact){
 # Copy the following codes to test my functions (mind the location of your files might not be the same of mine)
 #studentsfile<-read.table("students2.txt",fill=TRUE)
 #studclean<-read.csv("students.csv",header=TRUE)
-#correctnrow<-nrow(studclean)
-#studafterclean<-cleanstu(studentsfile,correctnrow)
+#studafterclean<-cleanstu(studentsfile,studclean)
 #mjobmatter(studafterclean)
